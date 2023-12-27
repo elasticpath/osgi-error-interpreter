@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div th:if="${requirement.getFilter().getType().equals('PackageFilter')}">
+            <p>This error means that bundle <code th:text="${requirement.getResource().getSymbolicName()}"></code> declares an import on <span th:utext="${requirement.getFilter().getMissing()}"></span> but there is no active bundle available that exports this package.</p>
+            <p>To solve this error, ensure that the bundle that exports <span th:utext="${requirement.getFilter().getMissing()}"></span> has been deployed into the OSGi container and is in the <code>active</code> state.</p>
+        </div>
+        <div th:if="${requirement.getFilter().getType().equals('ContractFilter')}">
+            <p>This error means that bundle <code th:text="${requirement.getResource().getSymbolicName()}"></code> contains a library that requires <span th:utext="${requirement.getFilter().getMissing()}"></span> but there is no active bundle available that provides this contract.</p>
+            <p>To solve this error, ensure that the bundle that provides <span th:utext="${requirement.getFilter().getMissing()}"></span> has been deployed into the OSGi container and is in the <code>active</code> state.</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,13 @@
+# Common rules for all environments
+# ---------------------------------
+
+# Ignored files #
+*.iml
+
+# Ignored directories #
+.idea/
+.settings/
+target/
+
+# Serverless directories
+.serverless

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Interpret OSGi error</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <script>
+        function sendRequest() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "https://dkd5j9s2xa.execute-api.us-west-2.amazonaws.com/dev/errorInterpreter");
+            xhr.setRequestHeader("Content-Type", "text/plain; charset=UTF-8");
+            xhr.onload = () => {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    response = JSON.parse(xhr.responseText);
+                    document.getElementById("interpretation").innerHTML = response.errorInterpretation;
+                    document.getElementById("solution").innerHTML = response.solution;
+                    document.getElementById("epsolution").innerHTML = response.epSolution;
+                } else {
+                    console.log(`Error: ${xhr.status}`);
+                }
+            };
+            const body = JSON.stringify({
+                errorMessage: document.getElementById("errormessage").value
+            });
+            xhr.send(body);
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <legend>Interpret OSGi error</legend>
+
+    <fieldset>
+
+        <!-- Text input -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="errormessage">OSGi error message</label>
+            <div class="col-md-10">
+                <textarea id="errormessage" name="errormessage" rows="10" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="go"></label>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary" onclick="sendRequest()">GO</button>
+            </div>
+        </div>
+
+    </fieldset>
+
+    <h2>Error interpretation</h2>
+    <div id="interpretation"></div>
+    <h2>How to solve</h2>
+    <div id="solution"></div>
+    <h2>How to solve in Elastic Path Self Managed</h2>
+    <div id="epsolution"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <ol>
+        <li>Open the <code>extensions/cortex/ext-cortex-webapp/target/ext-cortex-webapp-0.0.0-SNAPSHOT/WEB-INF</code> folder.</li>
+        <li>Within each of the subfolders, look for a JAR file similar to <code th:text="${error.getBundleSymbolicName()}"></code> that is duplicated in multiple folders.</li>
+        <li>Once found, check the <code>maven-dependency-plugin</code> <code>execution</code> blocks within <code>extensions/cortex/ext-cortex-webapp/pom.xml</code> to identify which executions are adding the bundle. Modify the configuration to prevent the bundle from being copied to one of the subfolders. Usually the bundle should be removed from the latest subfolder, from the following order: 
+            <ol>
+                <li><code>bundles-level1</code></li>
+                <li><code>bundles-level2</code></li>
+                <li><code>bundles-level3</code></li>
+                <li><code>bundles-level4</code></li>
+                <li><code>bundles</code></li>
+            </ol>
+        </li>
+    </ol>
+</body>
+</html>

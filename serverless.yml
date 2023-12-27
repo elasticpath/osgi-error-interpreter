@@ -1,0 +1,19 @@
+service: osgi-error-interpreter-lambda
+
+frameworkVersion: ^3.25.1
+
+provider:
+  name: aws
+  runtime: java8
+  region: us-west-2
+
+package:
+  artifact: lambda/target/osgi-error-interpreter-lambda-dist.jar
+
+functions:
+  errorInterpreter:
+    handler: com.elasticpath.osgierrorinterpreter.lambda.ErrorInterpreterRequestHandler
+    events:
+      - http:
+          path: errorInterpreter
+          method: post

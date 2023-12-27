@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div th:if="${requirement.getFilter().getType().equals('PackageFilter')}">
+            <ol>
+                <li>Find Maven coordinates for the library JAR that provides <span th:utext="${requirement.getFilter().getMissing()}"></span>.</li>
+                <li>Determine if it's a bundle. To do this, download the JAR and check if it contains a <code>META-INF/MANIFEST.MF</code> file.</li>
+                <li>If the JAR is a bundle, follow these steps:
+                    <ol>
+                        <li>Open <code>extensions/cortex/ext-cortex-webapp/pom.xml</code>.</li>
+                        <li>Add a provided dependency as in the following example:
+                            <pre><code>&lt;dependency&gt;
+&lt;groupId&gt;com.example&lt;/groupId&gt;
+&lt;artifactId&gt;some-artifact&lt;/artifactId&gt;
+&lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+                        </li>
+                        <li>Search for the <code>maven-dependency-plugin</code> with execution id <code>copy-extra-cortex-artifacts</code> and add a new <code>artifactItem</code> as in the following example:
+                            <pre><code>&lt;artifactItem&gt;
+&lt;groupId&gt;com.example&lt;/groupId&gt;
+&lt;artifactId&gt;some-artifact&lt;/artifactId&gt;
+&lt;/artifactItem&gt;</code></pre>
+                        </li>
+                    </ol>
+                </li>
+                <li>If the JAR is not a bundle, follow these steps:
+                    <ol>
+                        <li>Add the library as a dependency in <code>ep-core/pom.xml</code> or <code>ext-core/pom.xml</code>.</li>
+                        <li>Open <code>extensions/cortex/ext-commerce-engine-wrapper/pom.xml</code>.</li>
+                        <li>Search for the <code>maven-bundle-plugin</code> and add <span th:utext="${requirement.getFilter().getMissing()}"></span> to the <code>&lt;_exportcontents&gt;</code> list.</li>
+                    </ol>
+                </li>
+                <li>Sometimes this error will appear even though <span th:utext="${requirement.getFilter().getMissing()}"></span> is properly exported by a bundle that is active. This means that the bundle needs to be loaded by Felix earlier in the startup process, by changing the run level. Cortex loads from the bundle folders in the following order:
+                    <ol>
+                        <li><code>bundles-level1</code></li>
+                        <li><code>bundles-level2</code></li>
+                        <li><code>bundles-level3</code></li>
+                        <li><code>bundles-level4</code></li>
+                        <li><code>bundles</code></li>
+                    </ol>
+                </li>
+                <li>To move a bundle to a later folder, open <code>extensions/cortex/ext-cortex-webapp/pom.xml</code>, search for the <code>maven-dependency-plugin</code> executions, and move the bundle inclusion into the execution with the <code>outputDirectory</code> for the bundle folder you need.</li>
+            </ol>
+        </div>
+        <div th:if="${requirement.getFilter().getType().equals('ContractFilter')}">
+            <div>You likely have dependencies embedded in the bundle that contain packages that should be imported through OSGi instead.</div>
+            <ol>
+                <li>Run <code>mvn dependency:tree</code> within the module that contains the source code for your <code th:text="${requirement.getResource().getSymbolicName()}"></code> bundle.</li>
+                <li>Look for transitive dependencies that are normally exposed by other bundles, such as <code>ep-core</code>, <code>spring-beans</code>, or <code>openjpa</code></code>.</li>
+                <li>Add exclusions, as in the following example:<pre><code>&lt;dependency&gt;
+	&lt;groupId&gt;com.example&lt;/groupId&gt;
+	&lt;artifactId&gt;some-artifact&lt;/artifactId&gt;
+	&lt;exclusions&gt;
+		&lt;exclusion&gt;
+			&lt;groupId&gt;*&lt;/groupId&gt;
+			&lt;artifactId&gt;*&lt;/artifactId&gt;
+		&lt;/exclusion&gt;
+	&lt;/exclusions&gt;
+&lt;/dependency&gt;</code></pre>
+                </li>
+                <li>If you're sure that all the dependencies are correct, try adding <code>&lt;_contract&gt;!<span th:text="${requirement.getFilter().getMissingRaw()}"></span>&lt;/_contract&gt;</code> to the <code>maven-bundle-plugin</code> instructions.</li>
+            </ol>
+        </div>
+    </body>
+</html>

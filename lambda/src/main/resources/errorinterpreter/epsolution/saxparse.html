@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div>You likely have dependencies embedded in the bundle that contain packages that should be imported through OSGi instead.</div>
+    <ol>
+        <li>Run <code>mvn dependency:tree</code> within the module that contains the source code for your <code th:text="${error.getResource().getSymbolicName()}"></code> bundle.</li>
+        <li>Look for transitive dependencies that are normally exposed by other bundles, such as <code>ep-core</code>, <code>spring-beans</code>, or <code>openjpa</code></code>.</li>
+        <li>Add exclusions, as in the following example:<pre><code>&lt;dependency&gt;
+        &lt;groupId&gt;com.example&lt;/groupId&gt;
+        &lt;artifactId&gt;some-artifact&lt;/artifactId&gt;
+        &lt;exclusions&gt;
+            &lt;exclusion&gt;
+                &lt;groupId&gt;*&lt;/groupId&gt;
+                &lt;artifactId&gt;*&lt;/artifactId&gt;
+            &lt;/exclusion&gt;
+        &lt;/exclusions&gt;
+    &lt;/dependency&gt;</code></pre>
+        </li>
+    </ol>
+</body>
+</html>
