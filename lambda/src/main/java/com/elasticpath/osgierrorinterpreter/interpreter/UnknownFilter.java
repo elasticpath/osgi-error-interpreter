@@ -1,13 +1,25 @@
 package com.elasticpath.osgierrorinterpreter.interpreter;
 
+/**
+ * Parses unrecognized filter strings.
+ */
 public class UnknownFilter implements Filter {
 	private final String filterString;
 
-	public UnknownFilter(String filterString) {
+	/**
+	 * Constructor.
+	 * @param filterString the filter string
+	 */
+	public UnknownFilter(final String filterString) {
 		this.filterString = filterString;
 	}
 
-	public static UnknownFilter parse(String string) {
+	/**
+	 * Generate the appropriate object given the inputs.
+	 * @param string the string to parse
+	 * @return the instantiated object
+	 */
+	public static UnknownFilter parse(final String string) {
 		return new UnknownFilter(string);
 	}
 

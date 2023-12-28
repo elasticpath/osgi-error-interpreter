@@ -1,17 +1,45 @@
 package com.elasticpath.osgierrorinterpreter.interpreter;
 
+/**
+ * An interface for classes that parse filter strings.
+ */
 public interface Filter {
+	/**
+	 * Get the type of filter.
+	 * @return the type of filter
+	 */
 	String getType();
 
+	/**
+	 * Get the description of what is missing.
+	 * @return the description of what is missing
+	 */
 	String getMissing();
 
+	/**
+	 * Get a simple description of what is missing.
+	 * @return the simple description of what is missing
+	 */
 	String getMissingRaw();
 
+	/**
+	 * Get the suggested solution to resolve the missing filter.
+	 * @return the suggested solution to resolve the missing filter
+	 */
 	String getSolution();
 
+	/**
+	 * Get the raw filter string.
+	 * @return the raw filter string
+	 */
 	String getFilterString();
 
-	static Filter parse(String string) {
+	/**
+	 * Generate the appropriate object given the inputs.
+	 * @param string the string to parse
+	 * @return the instantiated object
+	 */
+	static Filter parse(final String string) {
 		InterfaceClassFilter interfaceClassFilter = InterfaceClassFilter.parse(string);
 		if (interfaceClassFilter != null) {
 			return interfaceClassFilter;

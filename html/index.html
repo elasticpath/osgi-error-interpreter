@@ -11,6 +11,8 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
     <script>
         function sendRequest() {
+            document.getElementById("go").innerText = "Processing..."
+            document.getElementById("go").disabled = true
             const xhr = new XMLHttpRequest();
             xhr.open("POST", "https://dkd5j9s2xa.execute-api.us-west-2.amazonaws.com/dev/errorInterpreter");
             xhr.setRequestHeader("Content-Type", "text/plain; charset=UTF-8");
@@ -23,6 +25,8 @@
                 } else {
                     console.log(`Error: ${xhr.status}`);
                 }
+                document.getElementById("go").innerText = "GO"
+                document.getElementById("go").disabled = false
             };
             const body = JSON.stringify({
                 errorMessage: document.getElementById("errormessage").value
@@ -49,7 +53,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="go"></label>
             <div class="col-md-4">
-                <button type="submit" class="btn btn-primary" onclick="sendRequest()">GO</button>
+                <button id="go" name="go" type="submit" class="btn btn-primary" onclick="sendRequest()">GO</button>
             </div>
         </div>
 

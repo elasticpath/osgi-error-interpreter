@@ -22,6 +22,9 @@ public class ErrorInterpreterRequestHandler implements RequestHandler<Map<String
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 	private final TemplateEngine templateEngine;
 
+	/**
+	 * Constructor.
+	 */
 	public ErrorInterpreterRequestHandler() {
 		templateEngine = new TemplateEngine();
 		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
@@ -42,7 +45,8 @@ public class ErrorInterpreterRequestHandler implements RequestHandler<Map<String
 		Optional<OsgiError> osgiErrorOptional = OsgiError.parse(lambdaRequest.getErrorMessage());
 		if (osgiErrorOptional.isPresent()) {
 			OsgiError osgiError = osgiErrorOptional.get();
-			response = new LambdaResponse(osgiError.toString(), osgiError.getSolutionHtml(templateEngine), osgiError.getEPSolutionHtml(templateEngine));
+			response = new LambdaResponse(osgiError.toString(), osgiError.getSolutionHtml(templateEngine),
+					osgiError.getEPSolutionHtml(templateEngine));
 		} else {
 			response = new LambdaResponse("Unknown", "Unknown", "Unknown");
 		}

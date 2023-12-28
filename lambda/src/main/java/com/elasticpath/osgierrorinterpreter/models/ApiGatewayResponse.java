@@ -3,7 +3,6 @@ package com.elasticpath.osgierrorinterpreter.models;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +12,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * Represents an API Gateway Response for AWS Lambdas.
+ * Defines the JSON representation of an API Gateway Response for AWS Lambdas.
  * See https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-output-format
  */
 public class ApiGatewayResponse {
@@ -39,19 +38,34 @@ public class ApiGatewayResponse {
 		this.isBase64Encoded = isBase64Encoded;
 	}
 
+	/**
+	 * Get the HTTP status code.
+	 * @return the HTTP status code
+	 */
 	public int getStatusCode() {
 		return statusCode;
 	}
 
+	/**
+	 * Get the body of the response.
+	 * @return the body of the response.
+	 */
 	public String getBody() {
 		return body;
 	}
 
+	/**
+	 * Get the headers in the response.
+	 * @return the headers in the response
+	 */
 	public Map<String, Object> getHeaders() {
 		return headers;
 	}
 
-	// API Gateway expects the property to be called "isBase64Encoded" => isIs
+	/**
+	 * Is the body of the response base64 encoded?
+	 * @return true if the body of the response is base64 encoded
+	 */
 	public boolean isIsBase64Encoded() {
 		return isBase64Encoded;
 	}
@@ -211,5 +225,4 @@ public class ApiGatewayResponse {
 				.append("body", this.body)
 				.toString();
 	}
-
 }

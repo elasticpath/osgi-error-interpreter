@@ -5,17 +5,30 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parses filters that contain "objectClass=".
+ */
 public class InterfaceClassFilter implements Filter {
 	private static final Pattern PATTERN = Pattern.compile("objectClass=([^\\)]+)");
 	private final String filterString;
 	private final Set<String> interfaceClasses;
 
-	public InterfaceClassFilter(String filterString, Set<String> interfaceClasses) {
+	/**
+	 * Constructor.
+	 * @param filterString the filter string
+	 * @param interfaceClasses the interface classes
+	 */
+	public InterfaceClassFilter(final String filterString, final Set<String> interfaceClasses) {
 		this.filterString = filterString;
 		this.interfaceClasses = interfaceClasses;
 	}
 
-	public static InterfaceClassFilter parse(String string) {
+	/**
+	 * Generate the appropriate object given the inputs.
+	 * @param string the string to parse
+	 * @return the instantiated object
+	 */
+	public static InterfaceClassFilter parse(final String string) {
 		Set<String> interfaceClassesInternal = new HashSet<>();
 		Matcher matcher = PATTERN.matcher(string);
 		while (matcher.find()) {
