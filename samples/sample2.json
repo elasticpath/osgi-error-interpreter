@@ -1,0 +1,3 @@
+{
+  "body": "{\n  \"errorMessage\": \"ERROR los.webapp.osgi.impl.JarBundleLoaderImpl - Could not start bundle com.elasticpath.extensions.ext-cache-manager-messaging\\norg.osgi.framework.BundleException: Unable to resolve com.elasticpath.extensions.ext-cache-manager-messaging [28](R 28.0): missing requirement [com.elasticpath.extensions.ext-cache-manager-messaging [28](R 28.0)] osgi.wiring.package; (osgi.wiring.package=com.elasticpath.messaging) Unresolved requirements: [[com.elasticpath.extensions.ext-cache-manager-messaging [28](R 28.0)] osgi.wiring.package; (osgi.wiring.package=com.elasticpath.messaging)]\"\n}"
+}
