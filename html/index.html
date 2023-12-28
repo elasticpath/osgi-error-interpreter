@@ -11,6 +11,7 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
     <script>
         function sendRequest() {
+            resetSolutionFields();
             document.getElementById("go").innerText = "Processing..."
             document.getElementById("go").disabled = true
             const xhr = new XMLHttpRequest();
@@ -19,52 +20,101 @@
             xhr.onload = () => {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     response = JSON.parse(xhr.responseText);
-                    document.getElementById("interpretation").innerHTML = response.errorInterpretation;
+                    showFields();
+                    document.getElementById("errorInterpretation").innerHTML = response.errorInterpretation;
                     document.getElementById("solution").innerHTML = response.solution;
-                    document.getElementById("epsolution").innerHTML = response.epSolution;
+                    document.getElementById("epSolution").innerHTML = response.epSolution;
                 } else {
                     console.log(`Error: ${xhr.status}`);
                 }
-                document.getElementById("go").innerText = "GO"
-                document.getElementById("go").disabled = false
             };
             const body = JSON.stringify({
-                errorMessage: document.getElementById("errormessage").value
+                errorMessage: document.getElementById("errorMessage").value
             });
             xhr.send(body);
+        }
+
+        function resetAllFields() {
+            document.getElementById("errorMessage").value = "";
+            resetSolutionFields();
+        }
+
+        function resetSolutionFields() {
+            document.getElementById("errorInterpretationHeader").hidden = true;
+            document.getElementById("errorInterpretation").innerHTML = "";
+            document.getElementById("solutionHeader").hidden = true;
+            document.getElementById("solution").innerHTML = "";
+            document.getElementById("epSolutionHeader").hidden = true;
+            document.getElementById("epSolution").innerHTML = "";
+        }
+
+        function showFields() {
+            document.getElementById("go").innerText = "GO";
+            document.getElementById("go").disabled = false;
+            document.getElementById("errorInterpretationHeader").hidden = false;
+            document.getElementById("solutionHeader").hidden = false;
+            document.getElementById("epSolutionHeader").hidden = false;
+        }
+        
+        function fillExample1() {
+            resetAllFields();
+            document.getElementById("errorMessage").value = "ERROR los.webapp.osgi.impl.JarBundleLoaderImpl - Could not start bundle com.elasticpath.extensions.rest.resource.additionalinfo-prototype\n" +
+                "org.osgi.framework.BundleException: Unable to resolve com.elasticpath.extensions.rest.resource.additionalinfo-prototype [117](R 117.0): missing requirement [com.elasticpath.extensions.rest.resource.additionalinfo-prototype [117](R 117.0)] osgi.wiring.package; (&(osgi.wiring.package=com.elasticpath.ext.rest.resource.integration.epcommerce.repository)(version>=2.0.0)(!(version>=3.0.0))) [caused by: Unable to resolve com.elasticpath.extensions.rest.repositories.ext-cortex-repositories [284](R 284.0): missing requirement [com.elasticpath.extensions.rest.repositories.ext-cortex-repositories [284](R 284.0)] osgi.wiring.package; (&(osgi.wiring.package=com.google.gson)(version>=2.6.0)(!(version>=3.0.0))) [caused by: Unable to resolve ext-commerce-engine-wrapper [281](R 281.0): missing requirement [ext-commerce-engine-wrapper [281](R 281.0)] osgi.wiring.package; (osgi.wiring.package=com.elasticpath.shipping.connectivity.dto.builder.populators.impl) [caused by: Unable to resolve com.elasticpath.shipping-calculation-connectivity-api [371](R 371.0): missing requirement [com.elasticpath.shipping-calculation-connectivity-api [371](R 371.0)] osgi.wiring.package; (osgi.wiring.package=org.springframework.transaction.interceptor) [caused by: Unable to resolve org.apache.servicemix.bundles.spring-tx [351](R 351.0): missing requirement [org.apache.servicemix.bundles.spring-tx [351](R 351.0)] osgi.wiring.package; (&(osgi.wiring.package=org.springframework.beans)(version>=4.3.30.RELEASE)(!(version>=4.4.0)))]]]] Unresolved requirements: [[com.elasticpath.extensions.rest.resource.additionalinfo-prototype [117](R 117.0)] osgi.wiring.package; (&(osgi.wiring.package=com.elasticpath.ext.rest.resource.integration.epcommerce.repository)(version>=2.0.0)(!(version>=3.0.0)))]";
+        }
+        function fillExample2() {
+            resetAllFields();
+            document.getElementById("errorMessage").value = "org.osgi.framework.BundleException: Unable to resolve com.elasticpath.extensions.rest.repositories.ext-cortex-repositories [126](R 126.0): missing requirement [com.elasticpath.extensions.rest.repositories.ext-cortex-repositories [126](R 126.0)] osgi.wiring.package; (osgi.wiring.package=com.elasticpath.common.dto.sellingchannel) [caused by: Unable to resolve ext-commerce-engine-wrapper [193](R 193.0): missing requirement [ext-commerce-engine-wrapper [193](R 193.0)] osgi.contract; (&(osgi.contract=JavaJPA)(version=2.2.0))] Unresolved requirements: [[com.elasticpath.extensions.rest.repositories.ext-cortex-repositories [126](R 126.0)] osgi.wiring.package; (osgi.wiring.package=com.elasticpath.common.dto.sellingchannel)]";
+        }
+        function fillExample3() {
+            resetAllFields();
+            document.getElementById("errorMessage").value = "Application context refresh failed (OsgiBundleXmlApplicationContext(bundle=com.elasticpath.rest.resource.cortex.ep-resource-emails, config=OSGI-INF/blueprint/applicationContext-emails-resource.xml,OSGI-INF/blueprint/emails-blueprint.xml))\n" +
+                "org.springframework.context.ApplicationContextException: Application context initialization for 'com.elasticpath.rest.resource.cortex.ep-resource-emails' has timed out waiting for (|(objectClass=com.elasticpath.rest.resource.emails.integration.EmailLookupStrategy)(objectClass=com.elasticpath.rest.resource.emails.integration.EmailWriterStrategy))";
+        }
+        function fillExample4() {
+            resetAllFields();
+            document.getElementById("errorMessage").value = "org.springframework.beans.factory.xml.XmlBeanDefinitionStoreException: Line 2 in XML document from OSGi resource[classpath:OSGI-INF/blueprint/applicationContext-repositories-integration.xml|bnd.id=126|bnd.sym=com.elasticpath.extensions.rest.repositories.ext-cortex-repositories] is invalid; nested exception is org.xml.sax.SAXParseException; systemId: http://www.elasticpath.com/schema/settings/settings.xsd; lineNumber: 2; columnNumber: 35; s4s-elt-character: Non-whitespace characters are not allowed in schema elements other than 'xs:appinfo' and 'xs:documentation'. Saw '301 Moved Permanently'.";
         }
     </script>
 </head>
 <body>
 <div class="container">
-    <legend>Interpret OSGi error</legend>
-
-    <fieldset>
-
+    <h1>Interpret OSGi error</h1>
+    <p>This tool knows how to interpret many OSGi error messages generated by <a href="https://felix.apache.org">Apache Felix</a>. If an error message is not recognized, it will be logged for investigation.</p>
+    <p>Paste a single error message into the text area below and click "GO".</p>
+    <p>You can also try the following examples:</p>
+    <div>
+        <button id="example1" class="btn btn-secondary" onclick="fillExample1()">Missing Requirement (Package) Example</button>
+        <button id="example2" class="btn btn-secondary" onclick="fillExample2()">Missing Requirement (Contract) Example</button>
+        <button id="example3" class="btn btn-secondary" onclick="fillExample3()">Timeout Example</button>
+        <button id="example4" class="btn btn-secondary" onclick="fillExample4()">SAX Parse Example</button>
+    </div>
+    <hr/>
+    <div>
         <!-- Text input -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="errormessage">OSGi error message</label>
+            <label class="col-md-4 control-label" for="errorMessage">OSGi error message</label>
             <div class="col-md-10">
-                <textarea id="errormessage" name="errormessage" rows="10" class="form-control"></textarea>
+                <textarea id="errorMessage" rows="10" class="form-control"></textarea>
             </div>
         </div>
 
         <!-- Button -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="go"></label>
             <div class="col-md-4">
-                <button id="go" name="go" type="submit" class="btn btn-primary" onclick="sendRequest()">GO</button>
+                <button id="go" class="btn btn-primary" onclick="sendRequest()">GO</button>
+                <button id="reset" class="btn btn-secondary" onclick="resetAllFields()">Reset</button>
             </div>
         </div>
-
-    </fieldset>
-
-    <h2>Error interpretation</h2>
-    <div id="interpretation"></div>
-    <h2>How to solve</h2>
+    </div>
+    <hr/>
+    <h2 id="errorInterpretationHeader" hidden>Error interpretation</h2>
+    <div id="errorInterpretation"></div>
+    <h2 id="solutionHeader" hidden>How to solve</h2>
     <div id="solution"></div>
-    <h2>How to solve in Elastic Path Self Managed</h2>
-    <div id="epsolution"></div>
+    <h2 id="epSolutionHeader" hidden>How to solve in Elastic Path Self Managed</h2>
+    <div id="epSolution"></div>
+    <hr/>
+    <div>This tool is provided by <a href="http://elasticpath.com">Elastic Path Software, Inc.</a></div>
 </div>
 </body>
 </html>
