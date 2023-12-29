@@ -5,6 +5,18 @@ package com.elasticpath.osgierrorinterpreter.interpreter;
  */
 public interface Requirement {
 	/**
+	 * Get the resource.
+	 * @return the resource
+	 */
+	Resource getResource();
+
+	/**
+	 * Get the filter.
+	 * @return the filter
+	 */
+	Filter getFilter();
+
+	/**
 	 * Generate the appropriate object given the inputs.
 	 * @param string the string to parse
 	 * @return the instantiated object
@@ -14,6 +26,6 @@ public interface Requirement {
 		if (wrappedRequirement != null) {
 			return wrappedRequirement;
 		}
-		return null;
+		return UnknownRequirement.parse(string);
 	}
 }

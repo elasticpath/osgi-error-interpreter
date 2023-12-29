@@ -1,0 +1,3 @@
+{
+  "body": "{\n  \"errorMessage\": \"could not resolve the bundles: [agenda.service.simple-0.0.1Unresolved constraint in bundle agenda.service.simple [9]: Unable to resolve 9.0: missing requirement [9.0] osgi.wiring.package; (&(osgi.wiring.package=org.apache.felix.dm)(version>=3.0.0)(!(version>=4.0.0)))\"\n}"
+}

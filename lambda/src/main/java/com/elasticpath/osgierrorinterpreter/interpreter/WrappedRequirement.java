@@ -35,18 +35,12 @@ public class WrappedRequirement implements Requirement {
 		return null;
 	}
 
-	/**
-	 * Get the resource.
-	 * @return the resource
-	 */
+	@Override
 	public Resource getResource() {
 		return resource;
 	}
 
-	/**
-	 * Get the filter.
-	 * @return the filter
-	 */
+	@Override
 	public Filter getFilter() {
 		return filter;
 	}

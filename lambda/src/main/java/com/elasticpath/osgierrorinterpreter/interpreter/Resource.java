@@ -36,7 +36,7 @@ public class Resource {
 		if (matcher2.matches()) {
 			return new Resource(matcher2.group(3), Integer.parseInt(matcher2.group(2)));
 		}
-		return null;
+		return new Resource("Unknown", 0);
 	}
 
 	/**

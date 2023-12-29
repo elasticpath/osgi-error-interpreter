@@ -57,6 +57,8 @@ public class MissingRequirementOsgiError implements OsgiError {
 		while (currentOsgiError.getCausedBy() != null) {
 			if (currentOsgiError.getCausedBy() instanceof MissingRequirementOsgiError) {
 				currentOsgiError = (MissingRequirementOsgiError) currentOsgiError.getCausedBy();
+			} else {
+				break;
 			}
 		}
 		return currentOsgiError;
@@ -81,14 +83,14 @@ public class MissingRequirementOsgiError implements OsgiError {
 	@Override
 	public String getSolutionHtml(final TemplateEngine templateEngine) {
 		Context context = new Context();
-		context.setVariable("requirement", ((WrappedRequirement) getLastMissingRequirementErrorInChain().getRequirement()));
+		context.setVariable("requirement", getLastMissingRequirementErrorInChain().getRequirement());
 		return templateEngine.process("errorinterpreter/solution/missingrequirement", context);
 	}
 
 	@Override
 	public String getEPSolutionHtml(final TemplateEngine templateEngine) {
 		Context context = new Context();
-		context.setVariable("requirement", ((WrappedRequirement) getLastMissingRequirementErrorInChain().getRequirement()));
+		context.setVariable("requirement", getLastMissingRequirementErrorInChain().getRequirement());
 		return templateEngine.process("errorinterpreter/epsolution/missingrequirement", context);
 	}
 
