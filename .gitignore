@@ -3,6 +3,7 @@
 
 # Ignored files #
 *.iml
+.DS_Store
 
 # Ignored directories #
 .idea/
