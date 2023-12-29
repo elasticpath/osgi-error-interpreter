@@ -10,15 +10,15 @@
                         <li>Open <code>extensions/cortex/ext-cortex-webapp/pom.xml</code>.</li>
                         <li>Add a provided dependency as in the following example:
                             <pre><code>&lt;dependency&gt;
-&lt;groupId&gt;com.example&lt;/groupId&gt;
-&lt;artifactId&gt;some-artifact&lt;/artifactId&gt;
-&lt;scope&gt;provided&lt;/scope&gt;
+	&lt;groupId&gt;com.example&lt;/groupId&gt;
+	&lt;artifactId&gt;some-artifact&lt;/artifactId&gt;
+	&lt;scope&gt;provided&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
                         </li>
                         <li>Search for the <code>maven-dependency-plugin</code> with execution id <code>copy-extra-cortex-artifacts</code> and add a new <code>artifactItem</code> as in the following example:
                             <pre><code>&lt;artifactItem&gt;
-&lt;groupId&gt;com.example&lt;/groupId&gt;
-&lt;artifactId&gt;some-artifact&lt;/artifactId&gt;
+	&lt;groupId&gt;com.example&lt;/groupId&gt;
+	&lt;artifactId&gt;some-artifact&lt;/artifactId&gt;
 &lt;/artifactItem&gt;</code></pre>
                         </li>
                     </ol>
@@ -59,6 +59,13 @@
 &lt;/dependency&gt;</code></pre>
                 </li>
                 <li>If you're sure that all the dependencies are correct, try adding <code>&lt;_contract&gt;!<span th:text="${requirement.getFilter().getMissingRaw()}"></span>&lt;/_contract&gt;</code> to the <code>maven-bundle-plugin</code> instructions.</li>
+            </ol>
+        </div>
+        <div th:if="${requirement.getFilter().getType().equals('ExecutionEnvironmentFilter')}">
+            <ol>
+                <li>Open the <code>pom.xml</code> file for the module that contains the source code for your <code th:text="${requirement.getResource().getSymbolicName()}"></code> bundle.</li>
+                <li>Search for the <code>maven-bundle-plugin</code> definition.</li>
+                <li>Within <code>configuration</code>-><code>instructions</code>, add <code>&lt;_noee&gt;true&lt;/_noee&gt;</code>.</li>
             </ol>
         </div>
     </body>

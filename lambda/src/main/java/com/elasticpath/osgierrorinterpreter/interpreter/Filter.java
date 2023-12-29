@@ -52,6 +52,10 @@ public interface Filter {
 		if (contractFilter != null) {
 			return contractFilter;
 		}
+		ExecutionEnvironmentFilter eeFilter = ExecutionEnvironmentFilter.parse(string);
+		if (eeFilter != null) {
+			return eeFilter;
+		}
 		return UnknownFilter.parse(string);
 	}
 }
