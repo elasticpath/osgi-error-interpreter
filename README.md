@@ -6,11 +6,9 @@
 mvn clean install
 ```
 
-NOTE: By default, the build only runs unit tests and integration tests. For additional tests, see the following sections.
-
 ## Test Lambda locally
 
-To run the lambdas locally without deploying to AWS, use these steps:
+To run the Lambda locally without deploying to AWS, use these steps:
 
 1. Install the [Serverless Framework’s Open Source CLI](https://www.serverless.com/framework/docs/getting-started/).
 1. Invoke the Lambda functions locally as follows:
