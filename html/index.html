@@ -19,14 +19,12 @@
             xhr.open("POST", "https://dkd5j9s2xa.execute-api.us-west-2.amazonaws.com/dev/errorInterpreter");
             xhr.setRequestHeader("Content-Type", "text/plain; charset=UTF-8");
             xhr.onload = () => {
-                if (xhr.readyState == 4 && xhr.status == 200) {
+                if (xhr.readyState == 4) {
                     response = JSON.parse(xhr.responseText);
                     showFields();
                     document.getElementById("errorInterpretation").innerHTML = response.errorInterpretation;
                     document.getElementById("solution").innerHTML = response.solution;
                     document.getElementById("epSolution").innerHTML = response.epSolution;
-                } else {
-                    console.log(`Error: ${xhr.status}`);
                 }
             };
             const body = JSON.stringify({
