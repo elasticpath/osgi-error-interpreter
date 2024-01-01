@@ -9,7 +9,7 @@
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
-    <script>
+    <script type="text/javascript">
         function sendRequest() {
             resetSolutionFields();
             document.getElementById("go").innerText = "Processing..."
@@ -22,12 +22,12 @@
                 if (xhr.readyState == 4) {
                     response = JSON.parse(xhr.responseText);
                     showFields();
-                    document.getElementById("errorInterpretation").innerHTML = response.errorInterpretation;
+                    document.getElementById("errorInterpretation").innerHTML = DOMPurify.sanitize(response.errorInterpretation, { USE_PROFILES: { html: true } });
                     if (response.errorInterpretationDiagram != null) {
-                        render(response.errorInterpretationDiagram, "errorInterpretationDiagram");
+                        render(DOMPurify.sanitize(response.errorInterpretationDiagram, { USE_PROFILES: { svg: true } }), "errorInterpretationDiagram");
                     }
-                    document.getElementById("solution").innerHTML = response.solution;
-                    document.getElementById("epSolution").innerHTML = response.epSolution;
+                    document.getElementById("solution").innerHTML = DOMPurify.sanitize(response.solution, { USE_PROFILES: { html: true } });
+                    document.getElementById("epSolution").innerHTML = DOMPurify.sanitize(response.epSolution, { USE_PROFILES: { html: true } });
                 }
             };
             const body = JSON.stringify({
@@ -79,8 +79,9 @@
             document.getElementById("errorMessage").value = "org.springframework.beans.factory.xml.XmlBeanDefinitionStoreException: Line 2 in XML document from OSGi resource[classpath:OSGI-INF/blueprint/applicationContext-repositories-integration.xml|bnd.id=126|bnd.sym=com.elasticpath.extensions.rest.repositories.ext-cortex-repositories] is invalid; nested exception is org.xml.sax.SAXParseException; systemId: http://www.elasticpath.com/schema/settings/settings.xsd; lineNumber: 2; columnNumber: 35; s4s-elt-character: Non-whitespace characters are not allowed in schema elements other than 'xs:appinfo' and 'xs:documentation'. Saw '301 Moved Permanently'.";
         }
     </script>
-    <script src="rawdeflate.js"></script>
-    <script src="plantuml.js"></script>
+    <script type="text/javascript" src="rawdeflate.js"></script>
+    <script type="text/javascript" src="plantuml.js"></script>
+    <script type="text/javascript" src="purify.min.js"></script>
 </head>
 <body>
 <div class="container">
