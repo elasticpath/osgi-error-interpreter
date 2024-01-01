@@ -24,7 +24,7 @@
                     showFields();
                     document.getElementById("errorInterpretation").innerHTML = DOMPurify.sanitize(response.errorInterpretation, { USE_PROFILES: { html: true } });
                     if (response.errorInterpretationDiagram != null) {
-                        render(DOMPurify.sanitize(response.errorInterpretationDiagram, { USE_PROFILES: { svg: true } }), "errorInterpretationDiagram");
+                        render(response.errorInterpretationDiagram, "errorInterpretationDiagram");
                     }
                     document.getElementById("solution").innerHTML = DOMPurify.sanitize(response.solution, { USE_PROFILES: { html: true } });
                     document.getElementById("epSolution").innerHTML = DOMPurify.sanitize(response.epSolution, { USE_PROFILES: { html: true } });
