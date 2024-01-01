@@ -59,7 +59,7 @@ public class TimedOutOsgiError implements OsgiError {
 	@Override
 	public String getErrorInterpretation() {
 		return "<div>Bundle with symbolic name <span style=\"color:DarkOrange\">" + bundleSymbolicName + "</span></div>timed out waiting for a "
-				+ "service that provides <div style=\"color:DarkOrange\">" + filter.getMissing(true) + "</div>";
+				+ "<div style=\"color:DarkOrange\">" + filter.getMissing(true) + "</div>";
 	}
 
 	@Override
