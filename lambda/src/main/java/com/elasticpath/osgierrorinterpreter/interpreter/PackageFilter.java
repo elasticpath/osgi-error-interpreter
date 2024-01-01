@@ -35,8 +35,12 @@ public class PackageFilter implements Filter {
 	}
 
 	@Override
-	public String getMissing() {
-		return "package <code>" + packageName + "</code>";
+	public String getMissing(final boolean asHTML) {
+		if (asHTML) {
+			return "package <code>" + packageName + "</code>";
+		} else {
+			return "package " + packageName;
+		}
 	}
 
 	@Override
@@ -46,7 +50,7 @@ public class PackageFilter implements Filter {
 
 	@Override
 	public String getSolution() {
-		return "bundle that exports " + getMissing();
+		return "bundle that exports " + getMissing(true);
 	}
 
 	@Override

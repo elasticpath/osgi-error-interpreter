@@ -43,10 +43,10 @@ public class ErrorInterpreterRequestHandler implements RequestHandler<Map<String
 			Optional<OsgiError> osgiErrorOptional = OsgiError.parse(lambdaRequest.getErrorMessage());
 			if (osgiErrorOptional.isPresent()) {
 				OsgiError osgiError = osgiErrorOptional.get();
-				response = new LambdaResponse(osgiError.toString(), osgiError.getSolutionHtml(templateEngine),
-						osgiError.getEPSolutionHtml(templateEngine));
+				response = new LambdaResponse(osgiError.getErrorInterpretation(), osgiError.getErrorInterpretationDiagram(),
+						osgiError.getSolutionHtml(templateEngine), osgiError.getEPSolutionHtml(templateEngine));
 			} else {
-				response = new LambdaResponse("Unknown: error will be logged for investigation.", UNKNOWN, UNKNOWN);
+				response = new LambdaResponse("Unknown: error will be logged for investigation.", null, UNKNOWN, UNKNOWN);
 				context.getLogger().log("Unknown Error Message Requested: " + lambdaRequest.getErrorMessage());
 			}
 			return ApiGatewayResponse.builder()
@@ -57,7 +57,7 @@ public class ErrorInterpreterRequestHandler implements RequestHandler<Map<String
 					.setObjectBody(response)
 					.build();
 		} catch (Exception ex) {
-			response = new LambdaResponse("Unexpected Error: " + ex.getMessage(), UNKNOWN, UNKNOWN);
+			response = new LambdaResponse("Unexpected Error: " + ex.getMessage(), null, UNKNOWN, UNKNOWN);
 			context.getLogger().log("Unexpected error: " + getStackTrace(ex));
 			return ApiGatewayResponse.builder()
 					.addHeader("Access-Control-Allow-Headers", "Content-Type")

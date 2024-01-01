@@ -35,8 +35,12 @@ public class ExecutionEnvironmentFilter implements Filter {
 	}
 
 	@Override
-	public String getMissing() {
-		return "execution environment <code>" + executionEnvironmentName + "</code>";
+	public String getMissing(final boolean asHTML) {
+		if (asHTML) {
+			return "execution environment <code>" + executionEnvironmentName + "</code>";
+		} else {
+			return "execution environment " + executionEnvironmentName;
+		}
 	}
 
 	@Override
@@ -46,7 +50,7 @@ public class ExecutionEnvironmentFilter implements Filter {
 
 	@Override
 	public String getSolution() {
-		return "Java VM compatible with " + getMissing();
+		return "Java VM compatible with " + getMissing(true);
 	}
 
 	@Override

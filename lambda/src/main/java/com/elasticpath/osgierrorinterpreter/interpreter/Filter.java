@@ -12,9 +12,10 @@ public interface Filter {
 
 	/**
 	 * Get the description of what is missing.
+	 * @param asHtml return response in HTML format
 	 * @return the description of what is missing
 	 */
-	String getMissing();
+	String getMissing(boolean asHtml);
 
 	/**
 	 * Get a simple description of what is missing.

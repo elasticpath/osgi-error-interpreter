@@ -35,8 +35,12 @@ public class ContractFilter implements Filter {
 	}
 
 	@Override
-	public String getMissing() {
-		return "contract <code>" + contractName + "</code>";
+	public String getMissing(final boolean asHTML) {
+		if (asHTML) {
+			return "contract <code>" + contractName + "</code>";
+		} else {
+			return "contract " + contractName;
+		}
 	}
 
 	@Override
@@ -46,7 +50,7 @@ public class ContractFilter implements Filter {
 
 	@Override
 	public String getSolution() {
-		return "bundle that provides " + getMissing();
+		return "bundle that provides " + getMissing(true);
 	}
 
 	@Override

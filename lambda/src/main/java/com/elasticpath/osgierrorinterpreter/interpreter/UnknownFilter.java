@@ -24,8 +24,12 @@ public class UnknownFilter implements Filter {
 	}
 
 	@Override
-	public String getMissing() {
-		return "<code>" + filterString + "</code>";
+	public String getMissing(final boolean asHTML) {
+		if (asHTML) {
+			return "<code>" + filterString + "</code>";
+		} else {
+			return filterString;
+		}
 	}
 
 	@Override

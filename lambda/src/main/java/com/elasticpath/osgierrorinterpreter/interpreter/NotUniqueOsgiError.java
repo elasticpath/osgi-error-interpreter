@@ -55,6 +55,17 @@ public class NotUniqueOsgiError implements OsgiError {
 	}
 
 	@Override
+	public String getErrorInterpretation() {
+		return "<div>Multiple bundles with the same symbolic name <span style=\"color:DarkOrange\">" + bundleSymbolicName + "</span> and version "
+				+ "<span style=\"color:DarkOrange\">" + bundleVersion + "</span> are deployed into the OSGi environment.</div>";
+	}
+
+	@Override
+	public String getErrorInterpretationDiagram() {
+		return null;
+	}
+
+	@Override
 	public String getSolutionHtml(final TemplateEngine templateEngine) {
 		Context context = new Context();
 		context.setVariable("error", this);
@@ -66,11 +77,5 @@ public class NotUniqueOsgiError implements OsgiError {
 		Context context = new Context();
 		context.setVariable("error", this);
 		return templateEngine.process("errorinterpreter/epsolution/notunique", context);
-	}
-
-	@Override
-	public String toString() {
-		return "<div>Multiple bundles with the same symbolic name <span style=\"color:DarkOrange\">" + bundleSymbolicName + "</span> and version "
-				+ "<span style=\"color:DarkOrange\">" + bundleVersion + "</span> are deployed into the OSGi environment.</div>";
 	}
 }

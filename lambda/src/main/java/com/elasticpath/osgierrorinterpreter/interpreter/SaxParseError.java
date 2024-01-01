@@ -58,6 +58,18 @@ public class SaxParseError implements OsgiError {
 	}
 
 	@Override
+	public String getErrorInterpretation() {
+		return "<div>Bundle with symbolic name <span style=\"color:DarkOrange\">" + resource.getSymbolicName()
+				+ "</span></div>is missing a <code>spring.schemas</code> file in the classpath that specifies <div style=\"color:DarkOrange\">"
+				+ getSchemaFile() + "</div>";
+	}
+
+	@Override
+	public String getErrorInterpretationDiagram() {
+		return null;
+	}
+
+	@Override
 	public String getSolutionHtml(final TemplateEngine templateEngine) {
 		Context context = new Context();
 		context.setVariable("error", this);
@@ -69,12 +81,5 @@ public class SaxParseError implements OsgiError {
 		Context context = new Context();
 		context.setVariable("error", this);
 		return templateEngine.process("errorinterpreter/epsolution/saxparse", context);
-	}
-
-	@Override
-	public String toString() {
-		return "<div>Bundle with symbolic name <span style=\"color:DarkOrange\">" + resource.getSymbolicName()
-				+ "</span></div>is missing a <code>spring.schemas</code> file in the classpath that specifies <div style=\"color:DarkOrange\">"
-				+ getSchemaFile() + "</div>";
 	}
 }

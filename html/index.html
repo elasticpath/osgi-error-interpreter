@@ -23,6 +23,9 @@
                     response = JSON.parse(xhr.responseText);
                     showFields();
                     document.getElementById("errorInterpretation").innerHTML = response.errorInterpretation;
+                    if (response.errorInterpretationDiagram != null) {
+                        render(response.errorInterpretationDiagram, "errorInterpretationDiagram");
+                    }
                     document.getElementById("solution").innerHTML = response.solution;
                     document.getElementById("epSolution").innerHTML = response.epSolution;
                 }
@@ -41,6 +44,7 @@
         function resetSolutionFields() {
             document.getElementById("errorInterpretationHeader").hidden = true;
             document.getElementById("errorInterpretation").innerHTML = "";
+            document.getElementById("errorInterpretationDiagram").innerHTML = "";
             document.getElementById("solutionHeader").hidden = true;
             document.getElementById("solution").innerHTML = "";
             document.getElementById("epSolutionHeader").hidden = true;
@@ -75,6 +79,8 @@
             document.getElementById("errorMessage").value = "org.springframework.beans.factory.xml.XmlBeanDefinitionStoreException: Line 2 in XML document from OSGi resource[classpath:OSGI-INF/blueprint/applicationContext-repositories-integration.xml|bnd.id=126|bnd.sym=com.elasticpath.extensions.rest.repositories.ext-cortex-repositories] is invalid; nested exception is org.xml.sax.SAXParseException; systemId: http://www.elasticpath.com/schema/settings/settings.xsd; lineNumber: 2; columnNumber: 35; s4s-elt-character: Non-whitespace characters are not allowed in schema elements other than 'xs:appinfo' and 'xs:documentation'. Saw '301 Moved Permanently'.";
         }
     </script>
+    <script src="rawdeflate.js"></script>
+    <script src="plantuml.js"></script>
 </head>
 <body>
 <div class="container">
@@ -126,7 +132,16 @@
     </table>
     <hr/>
     <h2 id="errorInterpretationHeader" hidden>Error interpretation</h2>
-    <div id="errorInterpretation"></div>
+    <table>
+        <tr style="vertical-align: top">
+            <td>
+                <div id="errorInterpretation"></div>
+            </td>
+            <td>
+                <div id="errorInterpretationDiagram"></div>
+            </td>
+        </tr>
+    </table>
     <h2 id="solutionHeader" hidden>How to solve</h2>
     <div id="solution"></div>
     <h2 id="epSolutionHeader" hidden>How to solve in Elastic Path Self Managed</h2>

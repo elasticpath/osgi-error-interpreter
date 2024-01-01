@@ -55,6 +55,17 @@ public class TimedOutOsgiError implements OsgiError {
 	}
 
 	@Override
+	public String getErrorInterpretation() {
+		return "<div>Bundle with symbolic name <span style=\"color:DarkOrange\">" + bundleSymbolicName + "</span></div>timed out waiting for a "
+				+ "service that provides <div style=\"color:DarkOrange\">" + filter.getMissing(true) + "</div>";
+	}
+
+	@Override
+	public String getErrorInterpretationDiagram() {
+		return null;
+	}
+
+	@Override
 	public String getSolutionHtml(final TemplateEngine templateEngine) {
 		Context context = new Context();
 		context.setVariable("error", this);
@@ -66,11 +77,5 @@ public class TimedOutOsgiError implements OsgiError {
 		Context context = new Context();
 		context.setVariable("error", this);
 		return templateEngine.process("errorinterpreter/epsolution/timedout", context);
-	}
-
-	@Override
-	public String toString() {
-		return "<div>Bundle with symbolic name <span style=\"color:DarkOrange\">" + bundleSymbolicName + "</span></div>timed out waiting for a "
-				+ "service that provides <div style=\"color:DarkOrange\">" + filter.getMissing() + "</div>";
 	}
 }

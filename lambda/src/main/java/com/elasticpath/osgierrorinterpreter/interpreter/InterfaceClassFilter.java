@@ -42,11 +42,19 @@ public class InterfaceClassFilter implements Filter {
 	}
 
 	@Override
-	public String getMissing() {
+	public String getMissing(final boolean asHTML) {
 		if (interfaceClasses.size() == 1) {
-			return "interface <code>" + interfaceClasses.iterator().next() + "</code>";
+			if (asHTML) {
+				return "interface <code>" + interfaceClasses.iterator().next() + "</code>";
+			} else {
+				return "interface " + interfaceClasses.iterator().next();
+			}
 		} else {
-			return "interfaces <code>" + interfaceClasses + "</code>";
+			if (asHTML) {
+				return "interfaces <code>" + interfaceClasses + "</code>";
+			} else {
+				return "interfaces " + interfaceClasses;
+			}
 		}
 	}
 
@@ -57,7 +65,7 @@ public class InterfaceClassFilter implements Filter {
 
 	@Override
 	public String getSolution() {
-		return "service for " + getMissing();
+		return "service for " + getMissing(true);
 	}
 
 	@Override

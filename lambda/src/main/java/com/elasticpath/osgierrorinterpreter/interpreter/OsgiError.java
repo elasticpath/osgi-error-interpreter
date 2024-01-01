@@ -34,6 +34,18 @@ public interface OsgiError {
 	}
 
 	/**
+	 * Get the generated HTML for the error interpretation.
+	 * @return the generated HTML for the error interpretation
+	 */
+	String getErrorInterpretation();
+
+	/**
+	 * Get the generated PlantUML for the error interpretation.
+	 * @return the generated PlantUML for the error interpretation
+	 */
+	String getErrorInterpretationDiagram();
+
+	/**
 	 * Get the generated HTML for the generic solution.
 	 * @param templateEngine the template engine
 	 * @return the generated HTML for the generic solution

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <ol>
-    <li>If there is no bundle providing <span th:utext="${error.getFilter().getMissing()}"></span>:
+    <li>If there is no bundle providing <span th:utext="${error.getFilter().getMissing(true)}"></span>:
         <ol>
             <li>Find the module that should provide the <span th:utext="${error.getFilter().getSolution()}"></span>.</li>
             <li>Open the <code>OSGI-INF/blueprint/*-blueprint.xml</code> file and make sure it contains a service definition, as in the following example:
@@ -12,7 +12,7 @@
     </li>
     <li>If there is a circular dependency between two bundles:
         <ol>
-            <li>Find the module that requests a reference to <span th:utext="${error.getFilter().getMissing()}"></span>.</li>
+            <li>Find the module that requests a reference to <span th:utext="${error.getFilter().getMissing(true)}"></span>.</li>
             <li>Open the <code>OSGI-INF/blueprint/*-blueprint.xml</code> file and find the reference.</li>
             <li>Change the service reference availability to <code>optional</code>, as in the following example:
                 <pre><code>&lt;reference id="beanId" availability="optional" interface="com.elasticpath.example.ExampleService"/&gt;</code></pre>

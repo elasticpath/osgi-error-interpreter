@@ -3,7 +3,7 @@
     <body>
         <div th:if="${requirement.getFilter().getType().equals('PackageFilter')}">
             <ol>
-                <li>Find Maven coordinates for the library JAR that provides <span th:utext="${requirement.getFilter().getMissing()}"></span>.</li>
+                <li>Find Maven coordinates for the library JAR that provides <span th:utext="${requirement.getFilter().getMissing(true)}"></span>.</li>
                 <li>Determine if it's a bundle. To do this, download the JAR and check if it contains a <code>META-INF/MANIFEST.MF</code> file.</li>
                 <li>If the JAR is a bundle, follow these steps:
                     <ol>
@@ -27,10 +27,10 @@
                     <ol>
                         <li>Add the library as a dependency in <code>ep-core/pom.xml</code> or <code>ext-core/pom.xml</code>.</li>
                         <li>Open <code>extensions/cortex/ext-commerce-engine-wrapper/pom.xml</code>.</li>
-                        <li>Search for the <code>maven-bundle-plugin</code> and add <span th:utext="${requirement.getFilter().getMissing()}"></span> to the <code>&lt;_exportcontents&gt;</code> list.</li>
+                        <li>Search for the <code>maven-bundle-plugin</code> and add <span th:utext="${requirement.getFilter().getMissing(true)}"></span> to the <code>&lt;_exportcontents&gt;</code> list.</li>
                     </ol>
                 </li>
-                <li>Sometimes this error will appear even though <span th:utext="${requirement.getFilter().getMissing()}"></span> is properly exported by a bundle that is active. This means that the bundle needs to be loaded by Felix earlier in the startup process, by changing the run level. Cortex loads from the bundle folders in the following order:
+                <li>Sometimes this error will appear even though <span th:utext="${requirement.getFilter().getMissing(true)}"></span> is properly exported by a bundle that is active. This means that the bundle needs to be loaded by Felix earlier in the startup process, by changing the run level. Cortex loads from the bundle folders in the following order:
                     <ol>
                         <li><code>bundles-level1</code></li>
                         <li><code>bundles-level2</code></li>
