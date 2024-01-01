@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import com.elasticpath.osgierrorinterpreter.PlantUmlUtil;
+
 /**
  * Parses errors regarding timeout waiting for services.
  */
@@ -62,7 +64,14 @@ public class TimedOutOsgiError implements OsgiError {
 
 	@Override
 	public String getErrorInterpretationDiagram() {
-		return null;
+		StringBuilder diagram = new StringBuilder();
+		diagram.append(PlantUmlUtil.HEADER);
+		diagram.append(PlantUmlUtil.generateDiagramBundle(bundleSymbolicName, getFilter().getMissing(false), null));
+		diagram.append(PlantUmlUtil.generateDiagramMissingBundle(getFilter().getMissing(false)));
+		diagram.append("[Imports\\n").append(getFilter().getMissing(false))
+				.append("] --> [Exports\\n").append(getFilter().getMissing(false)).append("]\n");
+		diagram.append(PlantUmlUtil.FOOTER);
+		return diagram.toString();
 	}
 
 	@Override

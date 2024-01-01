@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.elasticpath.osgierrorinterpreter.PlantUmlConstants;
+import com.elasticpath.osgierrorinterpreter.PlantUmlUtil;
 
 /**
  * Parses errors regarding missing package requirements.
@@ -91,47 +91,23 @@ public class MissingRequirementOsgiError implements OsgiError {
 	@Override
 	public String getErrorInterpretationDiagram() {
 		StringBuilder diagram = new StringBuilder();
-		diagram.append(PlantUmlConstants.HEADER);
-		diagram.append(generateDiagramBundle(requirement.getResource().getSymbolicName(), requirement.getFilter().getMissing(false), null));
+		diagram.append(PlantUmlUtil.HEADER);
+		diagram.append(PlantUmlUtil.generateDiagramBundle(requirement.getResource().getSymbolicName(),
+				requirement.getFilter().getMissing(false), null));
 		MissingRequirementOsgiError previousError = this;
 		while (previousError.getCausedBy() instanceof MissingRequirementOsgiError) {
 			MissingRequirementOsgiError currentError = (MissingRequirementOsgiError) previousError.getCausedBy();
-			diagram.append(generateDiagramBundle(currentError.getRequirement().getResource().getSymbolicName(),
+			diagram.append(PlantUmlUtil.generateDiagramBundle(currentError.getRequirement().getResource().getSymbolicName(),
 					currentError.getRequirement().getFilter().getMissing(false),
 					previousError.getRequirement().getFilter().getMissing(false)));
 			diagram.append("[Imports\\n").append(previousError.getRequirement().getFilter().getMissing(false))
 					.append("] --> [Exports\\n").append(previousError.getRequirement().getFilter().getMissing(false)).append("]\n");
 			previousError = currentError;
 		}
-		diagram.append(generateDiagramMissingBundle(previousError.getRequirement().getFilter().getMissing(false)));
+		diagram.append(PlantUmlUtil.generateDiagramMissingBundle(previousError.getRequirement().getFilter().getMissing(false)));
 		diagram.append("[Imports\\n").append(previousError.getRequirement().getFilter().getMissing(false))
 				.append("] --> [Exports\\n").append(previousError.getRequirement().getFilter().getMissing(false)).append("]\n");
-		diagram.append(PlantUmlConstants.FOOTER);
-		return diagram.toString();
-	}
-
-	private String generateDiagramBundle(final String bundleId, final String imports, final String exports) {
-		StringBuilder diagram = new StringBuilder();
-		diagram.append("package \"Bundle ").append(bundleId).append("\" {\n");
-		if (exports != null) {
-			diagram.append("    component \"Exports\\n").append(exports).append("\"\n");
-		}
-		if (imports != null) {
-			diagram.append("    component \"Imports\\n").append(imports).append("\"\n");
-		}
-		if (imports != null && exports != null) {
-			diagram.append("    [Exports\\n").append(exports).append("] -[hidden]-> [").append("Imports\\n")
-					.append(imports).append("]\n");
-		}
-		diagram.append("}\n");
-		return diagram.toString();
-	}
-
-	private String generateDiagramMissingBundle(final String exports) {
-		StringBuilder diagram = new StringBuilder();
-		diagram.append("package \"Missing Bundle\" #salmon {\n");
-		diagram.append("    component \"Exports\\n").append(exports).append("\"\n");
-		diagram.append("}\n");
+		diagram.append(PlantUmlUtil.FOOTER);
 		return diagram.toString();
 	}
 

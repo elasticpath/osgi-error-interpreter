@@ -2,6 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <body>
         <p>This error means that bundle <code th:text="${error.getBundleSymbolicName()}"></code> declares a reference to a <span th:utext="${error.getFilter().getSolution()}"></span> but there is no active bundle available that provides this service. This can also mean that there is a circular dependency between bundles that require services from each other.</p>
-        <p>To solve this error, ensure that the bundle that provides a service for <span th:utext="${error.getFilter().getMissing(true)}"></span> has been deployed into the OSGi container and is in the <code>active</code> state. If the bundles depend on services from each other, declare one of the service references as <code>availability="optional"</code> so that it becomes late-bound.</p>
+        <p>To solve this error, ensure that the bundle that provides a <span th:utext="${error.getFilter().getMissing(true)}"></span> has been deployed into the OSGi container and is in the <code>active</code> state. If the bundles depend on services from each other, declare one of the service references as <code>availability="optional"</code> so that it becomes late-bound.</p>
     </body>
 </html>

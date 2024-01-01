@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Parses filters that contain "objectClass=".
  */
@@ -45,15 +47,15 @@ public class InterfaceClassFilter implements Filter {
 	public String getMissing(final boolean asHTML) {
 		if (interfaceClasses.size() == 1) {
 			if (asHTML) {
-				return "interface <code>" + interfaceClasses.iterator().next() + "</code>";
+				return "service for interface <code>" + interfaceClasses.iterator().next() + "</code>";
 			} else {
-				return "interface " + interfaceClasses.iterator().next();
+				return "service for interface " + interfaceClasses.iterator().next();
 			}
 		} else {
 			if (asHTML) {
-				return "interfaces <code>" + interfaceClasses + "</code>";
+				return "service for interfaces <code>" + StringUtils.join(interfaceClasses, ", ") + "</code>";
 			} else {
-				return "interfaces " + interfaceClasses;
+				return "service for interfaces " + StringUtils.join(interfaceClasses, ",\\n");
 			}
 		}
 	}
