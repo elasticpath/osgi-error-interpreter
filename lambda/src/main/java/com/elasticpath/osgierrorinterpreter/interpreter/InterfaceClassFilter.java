@@ -67,7 +67,7 @@ public class InterfaceClassFilter implements Filter {
 
 	@Override
 	public String getSolution() {
-		return "service for " + getMissing(true);
+		return getMissing(true);
 	}
 
 	@Override
