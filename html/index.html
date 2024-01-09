@@ -66,22 +66,22 @@
         }
         
         function fillExample1() {
-            resetAllFields();
             document.getElementById("errorMessage").value = "ERROR los.webapp.osgi.impl.JarBundleLoaderImpl - Could not start bundle com.elasticpath.extensions.rest.resource.additionalinfo-prototype\n" +
                 "org.osgi.framework.BundleException: Unable to resolve com.elasticpath.extensions.rest.resource.additionalinfo-prototype [117](R 117.0): missing requirement [com.elasticpath.extensions.rest.resource.additionalinfo-prototype [117](R 117.0)] osgi.wiring.package; (&(osgi.wiring.package=com.elasticpath.ext.rest.resource.integration.epcommerce.repository)(version>=2.0.0)(!(version>=3.0.0))) [caused by: Unable to resolve com.elasticpath.extensions.rest.repositories.ext-cortex-repositories [284](R 284.0): missing requirement [com.elasticpath.extensions.rest.repositories.ext-cortex-repositories [284](R 284.0)] osgi.wiring.package; (&(osgi.wiring.package=com.google.gson)(version>=2.6.0)(!(version>=3.0.0))) [caused by: Unable to resolve ext-commerce-engine-wrapper [281](R 281.0): missing requirement [ext-commerce-engine-wrapper [281](R 281.0)] osgi.wiring.package; (osgi.wiring.package=com.elasticpath.shipping.connectivity.dto.builder.populators.impl) [caused by: Unable to resolve com.elasticpath.shipping-calculation-connectivity-api [371](R 371.0): missing requirement [com.elasticpath.shipping-calculation-connectivity-api [371](R 371.0)] osgi.wiring.package; (osgi.wiring.package=org.springframework.transaction.interceptor) [caused by: Unable to resolve org.apache.servicemix.bundles.spring-tx [351](R 351.0): missing requirement [org.apache.servicemix.bundles.spring-tx [351](R 351.0)] osgi.wiring.package; (&(osgi.wiring.package=org.springframework.beans)(version>=4.3.30.RELEASE)(!(version>=4.4.0)))]]]] Unresolved requirements: [[com.elasticpath.extensions.rest.resource.additionalinfo-prototype [117](R 117.0)] osgi.wiring.package; (&(osgi.wiring.package=com.elasticpath.ext.rest.resource.integration.epcommerce.repository)(version>=2.0.0)(!(version>=3.0.0)))]";
+            sendRequest();
         }
         function fillExample2() {
-            resetAllFields();
             document.getElementById("errorMessage").value = "org.osgi.framework.BundleException: Unable to resolve com.elasticpath.extensions.rest.repositories.ext-cortex-repositories [126](R 126.0): missing requirement [com.elasticpath.extensions.rest.repositories.ext-cortex-repositories [126](R 126.0)] osgi.wiring.package; (osgi.wiring.package=com.elasticpath.common.dto.sellingchannel) [caused by: Unable to resolve ext-commerce-engine-wrapper [193](R 193.0): missing requirement [ext-commerce-engine-wrapper [193](R 193.0)] osgi.contract; (&(osgi.contract=JavaJPA)(version=2.2.0))] Unresolved requirements: [[com.elasticpath.extensions.rest.repositories.ext-cortex-repositories [126](R 126.0)] osgi.wiring.package; (osgi.wiring.package=com.elasticpath.common.dto.sellingchannel)]";
+            sendRequest();
         }
         function fillExample3() {
-            resetAllFields();
             document.getElementById("errorMessage").value = "Application context refresh failed (OsgiBundleXmlApplicationContext(bundle=com.elasticpath.rest.resource.cortex.ep-resource-emails, config=OSGI-INF/blueprint/applicationContext-emails-resource.xml,OSGI-INF/blueprint/emails-blueprint.xml))\n" +
                 "org.springframework.context.ApplicationContextException: Application context initialization for 'com.elasticpath.rest.resource.cortex.ep-resource-emails' has timed out waiting for (|(objectClass=com.elasticpath.rest.resource.emails.integration.EmailLookupStrategy)(objectClass=com.elasticpath.rest.resource.emails.integration.EmailWriterStrategy))";
+            sendRequest();
         }
         function fillExample4() {
-            resetAllFields();
             document.getElementById("errorMessage").value = "org.springframework.beans.factory.xml.XmlBeanDefinitionStoreException: Line 2 in XML document from OSGi resource[classpath:OSGI-INF/blueprint/applicationContext-repositories-integration.xml|bnd.id=126|bnd.sym=com.elasticpath.extensions.rest.repositories.ext-cortex-repositories] is invalid; nested exception is org.xml.sax.SAXParseException; systemId: http://www.elasticpath.com/schema/settings/settings.xsd; lineNumber: 2; columnNumber: 35; s4s-elt-character: Non-whitespace characters are not allowed in schema elements other than 'xs:appinfo' and 'xs:documentation'. Saw '301 Moved Permanently'.";
+            sendRequest();
         }
         
         function onLoad() {
