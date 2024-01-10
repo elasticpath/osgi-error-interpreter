@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
  */
 public class Resource {
 	private static final Pattern PATTERN_1 = Pattern.compile("([\\w\\.-]+) \\[(\\d+)]\\(R ([\\d\\.]+)\\)");
-	private static final Pattern PATTERN_2 = Pattern.compile("classpath:([^|]+)\\|bnd.id=([^|]+)\\|bnd.sym=([^|]+)");
+	private static final Pattern PATTERN_2 = Pattern.compile("(\\d+)");
+	private static final Pattern PATTERN_3 = Pattern.compile("classpath:([^|]+)\\|bnd.id=([^|]+)\\|bnd.sym=([^|]+)");
 	private final String symbolicName;
 	private final int bundleId;
 
@@ -34,7 +35,11 @@ public class Resource {
 		}
 		Matcher matcher2 = PATTERN_2.matcher(string);
 		if (matcher2.matches()) {
-			return new Resource(matcher2.group(3), Integer.parseInt(matcher2.group(2)));
+			return new Resource("Unknown", Integer.parseInt(matcher2.group(1)));
+		}
+		Matcher matcher3 = PATTERN_2.matcher(string);
+		if (matcher3.matches()) {
+			return new Resource(matcher3.group(3), Integer.parseInt(matcher3.group(2)));
 		}
 		return new Resource("Unknown", 0);
 	}
