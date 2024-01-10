@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
  * See https://github.com/snefru/org.apache.felix.resolver/blob/master/src/main/java/org/apache/felix/resolver/WrappedRequirement.java.
  */
 public class WrappedRequirement implements Requirement {
-	private static final Pattern PATTERN = Pattern.compile("\\[([\\w\\.-]+ \\[\\d+\\]\\(R [\\d\\.]+\\))\\] [\\w\\.]+; ([^\\] ]+)");
+	private static final Pattern PATTERN_1 = Pattern.compile("\\[([\\w\\.-]+ \\[\\d+\\]\\(R [\\d\\.]+\\))\\] [\\w\\.]+; ([^\\] ]+)");
+	private static final Pattern PATTERN_2 = Pattern.compile("\\[([^\\]]+)\\] [\\w\\.]+; ([^\\] ]+)");
 	private final Resource resource;
 	private final Filter filter;
 
@@ -28,9 +29,13 @@ public class WrappedRequirement implements Requirement {
 	 * @return the instantiated object
 	 */
 	public static WrappedRequirement parse(final String string) {
-		Matcher matcher = PATTERN.matcher(string);
-		if (matcher.find()) {
-			return new WrappedRequirement(Resource.parse(matcher.group(1)), Filter.parse(matcher.group(2)));
+		Matcher matcher1 = PATTERN_1.matcher(string);
+		if (matcher1.find()) {
+			return new WrappedRequirement(Resource.parse(matcher1.group(1)), Filter.parse(matcher1.group(2)));
+		}
+		Matcher matcher2 = PATTERN_2.matcher(string);
+		if (matcher2.find()) {
+			return new WrappedRequirement(Resource.parse(matcher2.group(1)), Filter.parse(matcher2.group(2)));
 		}
 		return null;
 	}

@@ -27,14 +27,14 @@ public final class PlantUmlUtil {
 
 	/**
 	 * Generate a PlantUML fragment to define a bundle.
-	 * @param bundleId the bundle symbolic name
+	 * @param bundleSymbolicName the bundle symbolic name
 	 * @param imports what the bundle imports (or null)
 	 * @param exports what the bundle exports (or null)
 	 * @return the PlantUML fragment
 	 */
-	public static String generateDiagramBundle(final String bundleId, final String imports, final String exports) {
+	public static String generateDiagramBundle(final String bundleSymbolicName, final String imports, final String exports) {
 		StringBuilder diagram = new StringBuilder();
-		diagram.append("package \"Bundle ").append(bundleId).append("\" {\n");
+		diagram.append("package \"Bundle ").append(bundleSymbolicName).append("\" {\n");
 		if (exports != null) {
 			diagram.append("    component \"Exports\\n").append(exports).append("\"\n");
 		}
