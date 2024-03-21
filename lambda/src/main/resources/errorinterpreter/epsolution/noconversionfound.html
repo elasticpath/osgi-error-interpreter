@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<ol>
+    <li>Open <code>src/main/resources/OSGI-INF/blueprint/*-blueprint.xml</code> in your bundle source.</li>
+    <li>Add the following within the <code>blueprint</code> XML node:
+        <pre><code>
+            &lt;type-converters&gt;
+                &lt;bean id=&quot;springBlueprintConverter&quot; class=&quot;com.elasticpath.service.osgi.SpringBlueprintConverter&quot;/&gt;
+            &lt;/type-converters&gt;
+        </code></pre>
+    </li>
+</ol>
+</body>
+</html>

@@ -30,6 +30,10 @@ public interface OsgiError {
 		if (notUniqueOsgiError != null) {
 			return Optional.of(notUniqueOsgiError);
 		}
+		NoConversionFoundOsgiError noConversionFoundOsgiError = NoConversionFoundOsgiError.parse(string);
+		if (noConversionFoundOsgiError != null) {
+			return Optional.of(noConversionFoundOsgiError);
+		}
 		return Optional.empty();
 	}
 
