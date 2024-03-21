@@ -27,7 +27,7 @@
                     <ol>
                         <li>Add the library as a dependency in <code>ep-core/pom.xml</code> or <code>ext-core/pom.xml</code>.</li>
                         <li>Open <code>extensions/cortex/ext-commerce-engine-wrapper/pom.xml</code>.</li>
-                        <li>Search for the <code>maven-bundle-plugin</code> and add <code th:text="${requirement.getFilter().getMissingRaw() + ';x-internal:=true'}"></code> to the <code>&lt;_exportcontents&gt;</code> list.</li>
+                        <li>Search for the <code>maven-bundle-plugin</code> and add <code th:text="${requirement.getFilter().getMissingRaw()}"></code> to the <code>&lt;_exportcontents&gt;</code> list.</li>
                     </ol>
                 </li>
                 <li>Sometimes this error will appear even though <span th:utext="${requirement.getFilter().getMissing(true)}"></span> is properly exported by a bundle that is active. This means that the bundle needs to be loaded by Felix earlier in the startup process, by changing the run level. Cortex loads from the bundle folders in the following order:
