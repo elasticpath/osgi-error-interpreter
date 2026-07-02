@@ -25,6 +25,7 @@
 		<thymeleaf.version>3.1.2.RELEASE</thymeleaf.version>
 		<slf4j.version>2.0.7</slf4j.version>
 		<commons-lang3.version>3.10</commons-lang3.version>
+		<jsoup.version>1.17.2</jsoup.version>
 
 		<!-- Testing libraries -->
 		<junit.version>4.13</junit.version>
@@ -66,6 +67,11 @@
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
 				<version>${commons-lang3.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>${jsoup.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>

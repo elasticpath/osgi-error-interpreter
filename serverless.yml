@@ -17,3 +17,10 @@ functions:
       - http:
           path: errorInterpreter
           method: post
+  mcp:
+    handler: com.elasticpath.osgierrorinterpreter.lambda.McpRequestHandler
+    events:
+      - http:
+          path: mcp
+          method: post
+          cors: true
