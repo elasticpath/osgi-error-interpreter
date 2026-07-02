@@ -1,5 +1,36 @@
 # OSGi Error Interpreter Lambda
 
+This project exposes an OSGi error interpreter two ways:
+
+- A `POST /errorInterpreter` HTTP endpoint used by the HTML front-end.
+- A `POST /mcp` [Model Context Protocol](https://modelcontextprotocol.io) endpoint that lets LLMs (such as Claude) call the interpreter as a tool when they encounter an OSGi error.
+
+## MCP server
+
+The `/mcp` route is a stateless MCP server that speaks the Streamable HTTP transport using single JSON responses (it does not open server-initiated SSE streams). It exposes one tool:
+
+- `interpret_osgi_error` – input `{ "errorMessage": string }`; returns a plain-text interpretation plus generic and Elastic Path Self-Managed Commerce remediation guidance.
+
+### Connect a client
+
+For Claude Code:
+
+```bash
+claude mcp add --transport http osgi-error-interpreter <api-base-url>/mcp
+```
+
+Other clients accept the same URL as a remote/HTTP MCP server. No local installation is required.
+
+### Test the MCP endpoint locally
+
+The `samples/mcp-*.json` files contain ready-to-use JSON-RPC requests in API Gateway proxy format:
+
+```bash
+sls invoke local --function mcp --path samples/mcp-initialize.json --verbose
+sls invoke local --function mcp --path samples/mcp-tools-list.json --verbose
+sls invoke local --function mcp --path samples/mcp-tools-call.json --verbose
+```
+
 ## Build
 
 ```bash

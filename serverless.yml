@@ -4,7 +4,7 @@ frameworkVersion: ^3.25.1
 
 provider:
   name: aws
-  runtime: java8
+  runtime: java11
   region: us-west-2
 
 package:
@@ -17,3 +17,10 @@ functions:
       - http:
           path: errorInterpreter
           method: post
+  mcp:
+    handler: com.elasticpath.osgierrorinterpreter.lambda.McpRequestHandler
+    events:
+      - http:
+          path: mcp
+          method: post
+          cors: true

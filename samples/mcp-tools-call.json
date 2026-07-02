@@ -1,0 +1,3 @@
+{
+  "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 3,\n  \"method\": \"tools/call\",\n  \"params\": {\n    \"name\": \"interpret_osgi_error\",\n    \"arguments\": {\n      \"errorMessage\": \"ERROR los.webapp.osgi.impl.JarBundleLoaderImpl - Could not start bundle com.elasticpath.extensions.rest.repositories.ext-cortex-repositories\\norg.osgi.framework.BundleException: Unable to resolve com.elasticpath.extensions.rest.repositories.ext-cortex-repositories [120](R 120.0): missing requirement [com.elasticpath.extensions.rest.repositories.ext-cortex-repositories [120](R 120.0)] osgi.wiring.package; (&(osgi.wiring.package=com.elasticpath.repo.rest.resource.integration.epcommerce.repository.cartorder.repositories)(version>=804.0.0)(!(version>=805.0.0)))\"\n    }\n  }\n}"
+}

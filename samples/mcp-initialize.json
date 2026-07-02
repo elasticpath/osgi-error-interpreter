@@ -1,0 +1,3 @@
+{
+  "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1,\n  \"method\": \"initialize\",\n  \"params\": {\n    \"protocolVersion\": \"2025-06-18\",\n    \"capabilities\": {},\n    \"clientInfo\": {\n      \"name\": \"test-client\",\n      \"version\": \"1.0.0\"\n    }\n  }\n}"
+}
