@@ -4,7 +4,7 @@ frameworkVersion: ^3.25.1
 
 provider:
   name: aws
-  runtime: java8
+  runtime: java11
   region: us-west-2
 
 package:
